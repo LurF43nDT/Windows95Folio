@@ -36,6 +36,14 @@ const PROJECTS = [
     tech: ['Python', 'FastAPI', 'React', 'OpenAI API'],
     links: { GitHub: '#' },
   },
+  {
+    id: 'p5',
+    icon: '🧊',
+    name: '3D Art (Blender)',
+    desc: 'A collection of 3D models and renders created in Blender. Includes look-dev, lighting, and export-friendly formats for sharing.',
+    tech: ['Blender', '3D Modeling', 'Rendering'],
+    links: { ArtStation: 'https://lurf43n.artstation.com/' },
+  },
 ];
 
 // ── State ──
