@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windows 95 Portfolio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════ BOOT SCREEN ═══════════════ -->
+  <div id="boot-screen">
+    <div class="boot-inner">
+      <div class="boot-logo">Windows <span>95</span></div>
+      <div class="boot-tagline">Please wait while Windows loads your portfolio…</div>
+      <div class="boot-track"><div id="boot-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DESKTOP ═══════════════ -->
+  <div id="desktop">
+
+    <!-- Desktop Icons -->
+    <div id="icon-area">
+      <div class="d-icon" ondblclick="openWin('about')">
+        <div class="d-icon-img">🖥️</div>
+        <div class="d-icon-lbl">My Computer</div>
+      </div>
+      <div class="d-icon" ondblclick="openWin('projects')">
+        <div class="d-icon-img">📁</div>
+        <div class="d-icon-lbl">My Projects</div>
+      </div>
+      <div class="d-icon" ondblclick="openWin('skills')">
+        <div class="d-icon-img">📝</div>
+        <div class="d-icon-lbl">Skills.txt</div>
+      </div>
+      <div class="d-icon" ondblclick="openWin('contact')">
+        <div class="d-icon-img">📧</div>
+        <div class="d-icon-lbl">Contact.exe</div>
+      </div>
+      <div class="d-icon" ondblclick="openWin('bin')">
+        <div class="d-icon-img">🗑️</div>
+        <div class="d-icon-lbl">Recycle Bin</div>
+      </div>
+    </div>
+
+    <!-- ─── ABOUT WINDOW ─── -->
+    <div id="win-about" class="win" style="left:80px;top:30px;width:460px;">
+      <div class="win-tb" onmousedown="startDrag(event,'win-about')">
+        <div class="win-tb-l"><span class="win-ico">🖥️</span><span class="win-ttl">My Computer</span></div>
+        <div class="win-tb-r">
+          <button class="tbtn" onclick="minimizeWin('about')">_</button>
+          <button class="tbtn" onclick="maximizeWin('about')">□</button>
+          <button class="tbtn tbtn-x" onclick="closeWin('about')">✕</button>
+        </div>
+      </div>
+      <div class="win-menu">
+        <span class="mi">File</span><span class="mi">Edit</span><span class="mi">View</span><span class="mi">Help</span>
+      </div>
+      <div class="win-body">
+        <div class="about-layout">
+          <div class="about-avatar">
+            <img class="about-avatar-img" src="AvatarImg.png" alt="Avatar" />
+          </div>
+          <div class="about-info">
+            <div class="about-name">Hello, World! 👋</div>
+            <p>I'm <strong>Simon Faksvåg</strong>, a developer who loves building things for the web, and play around with some 3D modelling and rendering from time to time</p>
+            <p>Welcome to my Windows 95–style portfolio. Double-click any icon to explore!</p>
+            <div class="spec-box">
+              <div class="spec-row"><span class="spec-k">Role:</span><span>Full-Stack Developer</span></div>
+              <div class="spec-row"><span class="spec-k">Based in:</span><span>Earth 🌍</span></div>
+              <div class="spec-row"><span class="spec-k">Status:</span><span>🟢 Open to opportunities</span></div>
+              <div class="spec-row"><span class="spec-k">Interests:</span><span>Web, Games, Open Source</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="win-status"><span>Ready</span></div>
+    </div>
+
+    <!-- ─── PROJECTS WINDOW ─── -->
+    <div id="win-projects" class="win" style="left:120px;top:60px;width:570px;display:none;">
+      <div class="win-tb" onmousedown="startDrag(event,'win-projects')">
+        <div class="win-tb-l"><span class="win-ico">📁</span><span class="win-ttl">My Projects</span></div>
+        <div class="win-tb-r">
+          <button class="tbtn" onclick="minimizeWin('projects')">_</button>
+          <button class="tbtn" onclick="maximizeWin('projects')">□</button>
+          <button class="tbtn tbtn-x" onclick="closeWin('projects')">✕</button>
+        </div>
+      </div>
+      <div class="win-menu">
+        <span class="mi">File</span><span class="mi">Edit</span><span class="mi">View</span><span class="mi">Help</span>
+      </div>
+      <div class="win-toolbar">
+        <button class="tbarbtn">⬅ Back</button>
+        <button class="tbarbtn">➡ Forward</button>
+        <button class="tbarbtn">⬆ Up</button>
+        <div class="addr-bar">
+          <span class="addr-lbl">Address</span>
+          <input class="addr-input" value="C:\My Documents\Projects" readonly />
+        </div>
+      </div>
+      <div class="win-body">
+        <div class="file-grid" id="projects-grid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+      <div class="win-status"><span id="proj-count">4 objects</span></div>
+    </div>
+
+    <!-- ─── SKILLS WINDOW (Notepad) ─── -->
+    <div id="win-skills" class="win" style="left:160px;top:80px;width:410px;display:none;">
+      <div class="win-tb" onmousedown="startDrag(event,'win-skills')">
+        <div class="win-tb-l"><span class="win-ico">📝</span><span class="win-ttl">Skills.txt — Notepad</span></div>
+        <div class="win-tb-r">
+          <button class="tbtn" onclick="minimizeWin('skills')">_</button>
+          <button class="tbtn" onclick="maximizeWin('skills')">□</button>
+          <button class="tbtn tbtn-x" onclick="closeWin('skills')">✕</button>
+        </div>
+      </div>
+      <div class="win-menu">
+        <span class="mi">File</span><span class="mi">Edit</span><span class="mi">Format</span><span class="mi">Help</span>
+      </div>
+      <div class="win-body win-body-p0">
+        <textarea class="notepad" readonly>
+==============================
+         MY SKILLS
+==============================
+
+[LANGUAGES]
+  * JavaScript / TypeScript
+  * Python
+  * HTML / CSS
+  * SQL
+
+[FRAMEWORKS & LIBRARIES]
+  * React / Next.js
+  * Node.js / Express
+  * Tailwind CSS
+
+[TOOLS & PLATFORMS]
+  * Git / GitHub
+  * Docker
+  * VS Code
+  * Figma
+
+[SOFT SKILLS]
+  * Problem Solving
+  * Team Collaboration
+  * Agile / Scrum
+  * Fast Learner
+
+==============================
+  Last modified: 03/20/1995
+==============================
+        </textarea>
+      </div>
+    </div>
+
+    <!-- ─── CONTACT WINDOW ─── -->
+    <div id="win-contact" class="win" style="left:200px;top:100px;width:370px;display:none;">
+      <div class="win-tb" onmousedown="startDrag(event,'win-contact')">
+        <div class="win-tb-l"><span class="win-ico">📧</span><span class="win-ttl">Contact.exe</span></div>
+        <div class="win-tb-r">
+          <button class="tbtn" onclick="minimizeWin('contact')">_</button>
+          <button class="tbtn" onclick="maximizeWin('contact')">□</button>
+          <button class="tbtn tbtn-x" onclick="closeWin('contact')">✕</button>
+        </div>
+      </div>
+      <div class="win-body">
+        <p style="font-weight:bold;margin-bottom:10px;">Get in touch! 💬</p>
+        <div class="form-row">
+          <label>Name</label>
+          <input id="cnt-name" type="text" class="win-input" placeholder="Your Name" />
+        </div>
+        <div class="form-row">
+          <label>Email</label>
+          <input id="cnt-email" type="email" class="win-input" placeholder="your@email.com" />
+        </div>
+        <div class="form-row">
+          <label>Message</label>
+          <textarea id="cnt-msg" class="win-input win-ta" placeholder="Type your message here…"></textarea>
+        </div>
+        <div class="form-btns">
+          <button class="win-btn" onclick="sendContact()">Send</button>
+          <button class="win-btn" onclick="closeWin('contact')">Cancel</button>
+        </div>
+        <div class="social-row">
+          <a href="#" class="win-link" target="_blank">📁 GitHub</a>
+          <a href="#" class="win-link" target="_blank">💼 LinkedIn</a>
+          <a href="#" class="win-link" target="_blank">🐦 Twitter/X</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── RECYCLE BIN ─── -->
+    <div id="win-bin" class="win" style="left:240px;top:120px;width:280px;display:none;">
+      <div class="win-tb" onmousedown="startDrag(event,'win-bin')">
+        <div class="win-tb-l"><span class="win-ico">🗑️</span><span class="win-ttl">Recycle Bin</span></div>
+        <div class="win-tb-r">
+          <button class="tbtn" onclick="minimizeWin('bin')">_</button>
+          <button class="tbtn" onclick="maximizeWin('bin')">□</button>
+          <button class="tbtn tbtn-x" onclick="closeWin('bin')">✕</button>
+        </div>
+      </div>
+      <div class="win-menu">
+        <span class="mi">File</span><span class="mi">Edit</span><span class="mi">View</span><span class="mi">Help</span>
+      </div>
+      <div class="win-body" style="text-align:center;padding:24px 8px;">
+        <div style="font-size:40px;margin-bottom:8px;">🗑️</div>
+        <p>The Recycle Bin is empty.</p>
+        <p style="font-size:10px;color:#555;margin-top:8px;">No bugs here… probably.</p>
+      </div>
+      <div class="win-status"><span>0 objects</span></div>
+    </div>
+
+    <!-- ─── PROJECT DETAIL WINDOW ─── -->
+    <div id="win-projdetail" class="win" style="left:180px;top:100px;width:450px;display:none;">
+      <div class="win-tb" onmousedown="startDrag(event,'win-projdetail')">
+        <div class="win-tb-l">
+          <span class="win-ico" id="pd-icon">📄</span>
+          <span class="win-ttl" id="pd-title">Project</span>
+        </div>
+        <div class="win-tb-r">
+          <button class="tbtn tbtn-x" onclick="closeWin('projdetail')">✕</button>
+        </div>
+      </div>
+      <div class="win-body" id="pd-body"></div>
+    </div>
+
+    <!-- ═══════════════ TASKBAR ═══════════════ -->
+    <div id="taskbar">
+      <button id="start-btn" onclick="toggleStart()">
+        <div class="start-logo">
+          <div style="background:#e00;"></div>
+          <div style="background:#0b0;"></div>
+          <div style="background:#00e;"></div>
+          <div style="background:#ee0;"></div>
+        </div>
+        <span>Start</span>
+      </button>
+      <div class="tb-sep"></div>
+      <div id="tb-wins"></div>
+      <div id="sys-tray">
+        <span class="tray-ico">🔊</span>
+        <span class="tray-ico">🌐</span>
+        <div class="tray-div"></div>
+        <span id="tray-clock">00:00</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════ START MENU ═══════════════ -->
+    <div id="start-menu">
+      <div class="sm-sidebar"><span>Windows 95 Portfolio</span></div>
+      <div class="sm-items">
+        <div class="sm-item" onclick="openWin('about');toggleStart(false)">
+          <span class="sm-ico">🖥️</span>My Computer
+        </div>
+        <div class="sm-item" onclick="openWin('projects');toggleStart(false)">
+          <span class="sm-ico">📁</span>My Projects
+        </div>
+        <div class="sm-item" onclick="openWin('skills');toggleStart(false)">
+          <span class="sm-ico">📝</span>Skills.txt
+        </div>
+        <div class="sm-item" onclick="openWin('contact');toggleStart(false)">
+          <span class="sm-ico">📧</span>Contact.exe
+        </div>
+        <div class="sm-sep"></div>
+        <div class="sm-item sm-shutdown" onclick="shutDown()">
+          <span class="sm-ico">⏻</span>Shut Down…
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ SHUTDOWN OVERLAY ═══════════════ -->
+    <div id="shutdown-overlay">
+      <div class="win" id="shutdown-dlg">
+        <div class="win-tb">
+          <div class="win-tb-l"><span class="win-ttl">Shut Down Windows</span></div>
+          <div class="win-tb-r">
+            <button class="tbtn tbtn-x" onclick="cancelShutdown()">✕</button>
+          </div>
+        </div>
+        <div class="win-body">
+          <div class="shutdown-body">
+            <span style="font-size:40px;">⚠️</span>
+            <div>
+              <p style="margin-bottom:12px;">Are you sure you want to<br>shut down your computer?</p>
+              <div style="display:flex;gap:8px;">
+                <button class="win-btn" onclick="doShutdown()">Yes</button>
+                <button class="win-btn" onclick="cancelShutdown()">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /#desktop -->
+
+  <script src="js/script.js"></script>
+</body>
+</html>

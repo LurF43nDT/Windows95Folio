@@ -1,0 +1,538 @@
+/* =====================================================
+   Windows 95 Portfolio — style.css
+   ===================================================== */
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── CSS Variables ── */
+:root {
+  --bg:       #c0c0c0;   /* classic Win95 silver */
+  --desktop:  #008080;   /* teal desktop */
+  --tb-a:     #000080;   /* title bar active start */
+  --tb-a2:    #1084d0;   /* title bar active end */
+  --tb-i:     #808080;   /* title bar inactive */
+  --black:    #000;
+  --dark:     #404040;
+  --mid:      #808080;
+  --light:    #dfdfdf;
+  --white:    #fff;
+  --font:     Arial, "MS Sans Serif", sans-serif;
+  --fz:       11px;
+  --tbh:      28px;      /* taskbar height */
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: var(--font);
+  font-size: var(--fz);
+  cursor: default;
+}
+
+/* =====================================================
+   BOOT SCREEN
+   ===================================================== */
+#boot-screen {
+  position: fixed; inset: 0;
+  background: #000;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.boot-inner { text-align: center; }
+
+.boot-logo {
+  font-size: 36px; font-weight: bold;
+  color: #fff; letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+.boot-logo span { color: #1084d0; }
+
+.boot-tagline {
+  color: #aaa; font-size: 12px; margin-bottom: 14px;
+}
+
+.boot-track {
+  width: 220px; height: 14px;
+  background: #222;
+  border: 1px solid #555;
+  margin: 0 auto;
+  overflow: hidden;
+}
+#boot-fill {
+  height: 100%; width: 0;
+  background: #0000cc;
+  transition: width 0.1s linear;
+}
+
+/* =====================================================
+   DESKTOP
+   ===================================================== */
+#desktop {
+  position: relative;
+  width: 100vw; height: 100vh;
+  background-color: var(--desktop);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ── Desktop Icons ── */
+#icon-area {
+  position: absolute;
+  top: 8px; left: 8px;
+  display: flex; flex-direction: column;
+  gap: 12px;
+}
+
+.d-icon {
+  display: flex; flex-direction: column; align-items: center;
+  width: 72px; padding: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.d-icon:hover  { background: rgba(0,0,128,.3); border: 1px dotted #fff; }
+.d-icon.sel    { background: rgba(0,0,128,.5); border: 1px dotted #fff; }
+.d-icon-img    { font-size: 30px; line-height: 1; margin-bottom: 4px; }
+.d-icon-lbl {
+  color: #fff; font-size: 11px; text-align: center;
+  text-shadow: 1px 1px 1px #000;
+  word-break: break-word; line-height: 1.2;
+}
+
+/* =====================================================
+   WINDOW — shared chrome
+   ===================================================== */
+.win {
+  position: absolute;
+  background: var(--bg);
+  min-width: 180px; min-height: 80px;
+  /* raised 3-D border */
+  box-shadow:
+    inset -1px -1px var(--dark),
+    inset  1px  1px var(--white),
+    inset -2px -2px var(--mid),
+    inset  2px  2px var(--light);
+  z-index: 10;
+}
+
+/* Title Bar */
+.win-tb {
+  display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(to right, var(--tb-a), var(--tb-a2));
+  padding: 3px 3px 3px 5px;
+  cursor: default;
+}
+.win-tb.inactive { background: var(--tb-i); }
+
+.win-tb-l {
+  display: flex; align-items: center; gap: 5px;
+  flex: 1; overflow: hidden;
+}
+.win-ico  { font-size: 14px; line-height: 1; flex-shrink: 0; }
+.win-ttl  {
+  color: #fff; font-weight: bold; font-size: 11px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.win-tb-r { display: flex; gap: 2px; flex-shrink: 0; }
+
+/* Title buttons */
+.tbtn {
+  width: 16px; height: 14px;
+  background: var(--bg);
+  border: none; padding: 0;
+  font-size: 9px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font);
+  box-shadow:
+    inset -1px -1px var(--dark),
+    inset  1px  1px var(--white),
+    inset -2px -2px var(--mid),
+    inset  2px  2px var(--light);
+}
+.tbtn:active {
+  box-shadow:
+    inset -1px -1px var(--white),
+    inset  1px  1px var(--dark),
+    inset -2px -2px var(--light),
+    inset  2px  2px var(--mid);
+}
+
+/* Menu Bar */
+.win-menu {
+  display: flex; gap: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--mid);
+  padding: 1px 2px;
+}
+.mi {
+  padding: 2px 8px;
+  font-size: 11px; cursor: default;
+}
+.mi:hover { background: #000080; color: #fff; }
+
+/* Explorer Toolbar */
+.win-toolbar {
+  display: flex; align-items: center; gap: 4px;
+  padding: 3px 4px;
+  border-bottom: 1px solid var(--mid);
+}
+.tbarbtn {
+  background: var(--bg); border: none; cursor: pointer;
+  font-size: 10px; padding: 2px 6px; font-family: var(--font);
+  box-shadow:
+    inset -1px -1px var(--dark),
+    inset  1px  1px var(--white),
+    inset -2px -2px var(--mid),
+    inset  2px  2px var(--light);
+}
+.tbarbtn:active {
+  box-shadow:
+    inset -1px -1px var(--white),
+    inset  1px  1px var(--dark),
+    inset -2px -2px var(--light),
+    inset  2px  2px var(--mid);
+}
+.addr-bar  { display: flex; align-items: center; gap: 4px; flex: 1; }
+.addr-lbl  { font-size: 10px; white-space: nowrap; }
+.addr-input {
+  flex: 1; height: 18px; padding: 1px 3px;
+  font-family: var(--font); font-size: 10px;
+  background: #fff;
+  box-shadow: inset 1px 1px var(--mid), inset -1px -1px var(--light);
+  border: 1px solid var(--mid);
+}
+
+/* Window Body */
+.win-body {
+  padding: 8px;
+  overflow: auto;
+  max-height: 65vh;
+}
+.win-body-p0 { padding: 0; }
+
+/* Status Bar */
+.win-status {
+  border-top: 1px solid var(--mid);
+  padding: 2px 4px;
+  font-size: 11px;
+  display: flex; gap: 6px;
+}
+.win-status span {
+  box-shadow: inset -1px -1px var(--white), inset 1px 1px var(--mid);
+  padding: 1px 4px;
+}
+
+/* =====================================================
+   ABOUT WINDOW
+   ===================================================== */
+.about-layout {
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.about-avatar {
+  width: 80px; height: 80px; flex-shrink: 0;
+  background: #fff; font-size: 46px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 3px; /* leave room for the inset "3D" border */
+  box-shadow:
+    inset -1px -1px var(--white),
+    inset  1px  1px var(--mid),
+    inset -2px -2px var(--light),
+    inset  2px  2px var(--dark);
+}
+.about-avatar-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  /* Keep the existing 3D border illusion coming from .about-avatar */
+  border: 0;
+}
+.about-name {
+  font-size: 14px; font-weight: bold; margin-bottom: 6px;
+}
+.about-info p { font-size: 11px; margin-bottom: 4px; line-height: 1.4; }
+
+.spec-box {
+  margin-top: 10px;
+  background: #fff;
+  padding: 5px 7px;
+  box-shadow: inset 1px 1px var(--mid), inset -1px -1px var(--light);
+  border: 1px solid var(--mid);
+}
+.spec-row  { display: flex; gap: 6px; font-size: 11px; padding: 1px 0; }
+.spec-k    { font-weight: bold; width: 75px; flex-shrink: 0; }
+
+/* =====================================================
+   PROJECTS WINDOW — file grid
+   ===================================================== */
+.file-grid {
+  display: flex; flex-wrap: wrap;
+  gap: 16px; padding: 8px; min-height: 130px;
+}
+.file-item {
+  display: flex; flex-direction: column; align-items: center;
+  width: 72px; padding: 4px; border: 1px solid transparent;
+  cursor: pointer;
+}
+.file-item:hover { background: rgba(0,0,128,.2); border: 1px dotted #000; }
+.file-item:active { background: rgba(0,0,128,.4); }
+.file-item-ico { font-size: 30px; margin-bottom: 4px; }
+.file-item span { font-size: 10px; text-align: center; word-break: break-word; }
+
+/* =====================================================
+   SKILLS WINDOW — Notepad
+   ===================================================== */
+.notepad {
+  display: block; width: 100%; height: 300px;
+  padding: 4px; resize: none; border: none; outline: none;
+  background: #fff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px; line-height: 1.45;
+  box-shadow: inset 1px 1px var(--mid);
+}
+
+/* =====================================================
+   CONTACT WINDOW
+   ===================================================== */
+.form-row {
+  display: flex; flex-direction: column; gap: 2px; margin-bottom: 8px;
+}
+.form-row label { font-size: 11px; font-weight: bold; }
+
+.win-input {
+  background: #fff; border: none; width: 100%;
+  padding: 3px 4px;
+  font-family: var(--font); font-size: 11px;
+  box-shadow:
+    inset -1px -1px var(--white),
+    inset  1px  1px var(--mid),
+    inset -2px -2px var(--light),
+    inset  2px  2px var(--dark);
+}
+.win-input:focus { outline: 1px solid #000; }
+.win-ta { height: 74px; resize: none; }
+
+.form-btns {
+  display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 10px;
+}
+.win-btn {
+  background: var(--bg); border: none;
+  padding: 4px 20px; min-width: 70px;
+  font-family: var(--font); font-size: 11px; cursor: pointer;
+  box-shadow:
+    inset -1px -1px var(--dark),
+    inset  1px  1px var(--white),
+    inset -2px -2px var(--mid),
+    inset  2px  2px var(--light);
+}
+.win-btn:active {
+  box-shadow:
+    inset -1px -1px var(--white),
+    inset  1px  1px var(--dark),
+    inset -2px -2px var(--light),
+    inset  2px  2px var(--mid);
+  padding: 5px 19px 3px 21px;
+}
+
+.social-row {
+  display: flex; gap: 12px;
+  border-top: 1px solid var(--mid);
+  padding-top: 8px; margin-top: 2px;
+}
+.win-link {
+  color: #000080; font-size: 11px; text-decoration: underline; cursor: pointer;
+}
+.win-link:hover { color: #0000ff; }
+
+/* =====================================================
+   PROJECT DETAIL
+   ===================================================== */
+.pd-body { padding: 4px; }
+.pd-body h3 {
+  font-size: 13px; margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--mid);
+}
+.pd-body p { font-size: 11px; margin-bottom: 8px; line-height: 1.4; }
+.pd-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+.pd-tag {
+  background: #000080; color: #fff;
+  padding: 2px 6px; font-size: 10px;
+}
+.pd-links { display: flex; gap: 10px; }
+
+/* =====================================================
+   TASKBAR
+   ===================================================== */
+#taskbar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: var(--tbh);
+  background: var(--bg);
+  box-shadow: inset 0 2px 0 var(--white), inset 0 1px 0 var(--light);
+  display: flex; align-items: center;
+  padding: 2px;
+  gap: 2px;
+  z-index: 100;
+}
+
+#start-btn {
+  display: flex; align-items: center; gap: 4px;
+  background: var(--bg); border: none;
+  padding: 2px 7px; height: 22px;
+  font-family: var(--font); font-size: 11px; font-weight: bold; cursor: pointer;
+  box-shadow:
+    inset -1px -1px var(--dark),
+    inset  1px  1px var(--white),
+    inset -2px -2px var(--mid),
+    inset  2px  2px var(--light);
+}
+#start-btn.pressed,
+#start-btn:active {
+  box-shadow:
+    inset -1px -1px var(--white),
+    inset  1px  1px var(--dark),
+    inset -2px -2px var(--light),
+    inset  2px  2px var(--mid);
+}
+
+.start-logo {
+  display: grid;
+  grid-template-columns: 7px 7px;
+  grid-template-rows: 7px 7px;
+  gap: 1px; width: 15px; height: 15px;
+}
+.start-logo div { width: 100%; height: 100%; }
+
+.tb-sep {
+  width: 2px; height: 22px; flex-shrink: 0;
+  box-shadow: inset -1px 0 var(--white), inset 1px 0 var(--mid);
+}
+
+#tb-wins {
+  flex: 1; display: flex; align-items: center; gap: 2px; height: 100%;
+}
+
+.tb-item {
+  height: 22px; padding: 2px 8px;
+  background: var(--bg); border: none;
+  font-family: var(--font); font-size: 11px; cursor: pointer;
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  display: flex; align-items: center; gap: 4px;
+  box-shadow:
+    inset -1px -1px var(--dark),
+    inset  1px  1px var(--white),
+    inset -2px -2px var(--mid),
+    inset  2px  2px var(--light);
+}
+.tb-item.active {
+  background: #b0b0b0;
+  box-shadow:
+    inset -1px -1px var(--white),
+    inset  1px  1px var(--dark),
+    inset -2px -2px var(--light),
+    inset  2px  2px var(--mid);
+}
+
+#sys-tray {
+  display: flex; align-items: center; gap: 4px;
+  padding: 2px 5px; height: 22px;
+  box-shadow: inset -1px -1px var(--white), inset 1px 1px var(--mid);
+}
+.tray-ico { font-size: 13px; }
+.tray-div {
+  width: 1px; height: 14px;
+  background: var(--mid);
+  box-shadow: 1px 0 0 var(--white);
+}
+#tray-clock { font-size: 11px; min-width: 44px; text-align: center; }
+
+/* =====================================================
+   START MENU
+   ===================================================== */
+#start-menu {
+  position: absolute;
+  bottom: var(--tbh); left: 0;
+  width: 220px;
+  background: var(--bg);
+  box-shadow:
+    inset -1px -1px var(--dark),
+    inset  1px  1px var(--white),
+    inset -2px -2px var(--mid),
+    inset  2px  2px var(--light);
+  display: none; /* shown via JS */
+  z-index: 200;
+}
+#start-menu.open { display: flex; }
+
+.sm-sidebar {
+  width: 26px; background: var(--mid);
+  display: flex; align-items: flex-end;
+  padding: 8px 5px;
+}
+.sm-sidebar span {
+  color: var(--light); font-size: 14px; font-weight: bold;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  white-space: nowrap; letter-spacing: 1px;
+}
+
+.sm-items { flex: 1; display: flex; flex-direction: column; padding: 2px; }
+.sm-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 8px; font-size: 12px; cursor: default;
+}
+.sm-item:hover { background: #000080; color: #fff; }
+.sm-ico { font-size: 16px; width: 24px; text-align: center; }
+
+.sm-sep {
+  height: 1px; background: var(--mid);
+  box-shadow: 0 1px 0 var(--white);
+  margin: 3px 2px;
+}
+
+/* =====================================================
+   SHUTDOWN OVERLAY
+   ===================================================== */
+#shutdown-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.55);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 9000;
+}
+#shutdown-overlay.open { display: flex; }
+
+#shutdown-dlg {
+  position: static !important; /* override absolute */
+  width: 310px;
+}
+
+.shutdown-body {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 10px;
+  font-size: 11px;
+}
+
+/* =====================================================
+   MESSAGE BOX (dynamic)
+   ===================================================== */
+.msgbox-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 8500;
+}
+.msgbox {
+  position: static !important;
+  width: 280px;
+}
+.msgbox-body {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px; font-size: 11px; line-height: 1.5;
+}
+.msgbox-ico { font-size: 26px; flex-shrink: 0; }
+.msgbox-foot {
+  display: flex; justify-content: center;
+  padding: 6px 8px;
+  border-top: 1px solid var(--mid);
+}
